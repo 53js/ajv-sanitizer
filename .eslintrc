@@ -1,0 +1,6 @@
+{
+	"extends": [
+		"53js",
+		"plugin:jest/recommended"
+	]
+}

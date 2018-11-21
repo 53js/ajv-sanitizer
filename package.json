@@ -1,0 +1,23 @@
+{
+  "name": "ajv-sanitizer",
+  "version": "1.0.0",
+  "description": "String sanitization with JSON-Schema using Ajv",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "53JS",
+  "license": "MIT",
+  "devDependencies": {
+    "ajv": "^6.5.5",
+    "eslint": "^5.9.0",
+    "eslint-config-53js": "^1.0.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^22.0.0",
+    "jest": "^23.6.0"
+  },
+  "dependencies": {
+    "validator": "^10.9.0"
+  }
+}
