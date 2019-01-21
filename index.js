@@ -18,9 +18,9 @@ const ajvSanitizer = (ajv) => {
 				throw new TypeError('Unknown sanitizer');
 			}
 
-			return (data, currentDataPath, parentDataObject, propertyName, rootData) => {
+			return (data, currentDataPath, parentDataObject, propertyName) => {
 				if (!propertyName) throw new TypeError('Data must be a property of an object');
-				rootData[propertyName] = sanitize(data);
+				parentDataObject[propertyName] = sanitize(data);
 				return true;
 			};
 		},

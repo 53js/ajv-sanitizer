@@ -98,6 +98,21 @@ const schemaUndefinedSanitizer = {
 	},
 };
 
+const schemaDeep = {
+	type: 'object',
+	properties: {
+		parentObject: {
+			type: 'object',
+			properties: {
+				fieldNumber: {
+					type: 'string',
+					sanitize: 'number',
+				},
+			},
+		},
+	},
+};
+
 beforeEach(() => {
 	ajv = ajvSanitizer(new AjvOriginal());
 	Ajv.mockClear();
@@ -163,6 +178,20 @@ describe('ajvSanitizer(ajv)', () => {
 			expect(() => (
 				ajv.validate({ type: 'string', sanitize: 'boolean' }, 'true')
 			)).toThrow(TypeError);
+		},
+	);
+
+	it(
+		'should modify the object deeply',
+		() => {
+			const dataDeep = {
+				parentObject: {
+					fieldNumber: '33',
+				},
+			};
+
+			expect(ajv.validate(schemaDeep, dataDeep)).toBe(true);
+			expect(dataDeep).toEqual({ parentObject: { fieldNumber: 33 } });
 		},
 	);
 });
