@@ -59,6 +59,7 @@ Here is a list of the sanitizers currently available :
 * boolean
 * date
 * email
+* emailKeepDots (To keep dots in email name)
 * escape
 * float
 * int
