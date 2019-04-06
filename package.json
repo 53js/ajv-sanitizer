@@ -2,15 +2,38 @@
   "name": "ajv-sanitizer",
   "version": "1.0.0",
   "description": "String sanitization with JSON-Schema using Ajv",
+  "keywords": [
+    "JSON",
+    "ajv",
+    "json-schema",
+    "json-schema-sanitization",
+    "json-schema-sanitize",
+    "json-schema-sanitizer",
+    "json-schema-validation",
+    "json-schema-validator",
+    "jsonschema",
+    "sanitization",
+    "sanitize",
+    "sanitizer",
+    "schema",
+    "validation",
+    "validator"
+  ],
+  "homepage": "https://github.com/53js/ajv-sanitizer",
+  "bugs": {
+    "url": "https://github.com/53js/ajv-sanitizer/issues"
+  },
   "repository": "github:53js/ajv-sanitizer",
+  "license": "MIT",
+  "author": "53JS",
   "main": "index.js",
   "scripts": {
     "test": "jest"
   },
-  "author": "53JS",
-  "license": "MIT",
+  "dependencies": {
+    "validator": "^10.11.0"
+  },
   "devDependencies": {
-    "ajv": "^6.10.0",
     "eslint": "^5.16.0",
     "eslint-config-53js": "^1.1.0",
     "eslint-config-airbnb": "^17.1.0",
@@ -18,7 +41,7 @@
     "eslint-plugin-jest": "^22.4.1",
     "jest": "^24.7.1"
   },
-  "dependencies": {
-    "validator": "^10.11.0"
+  "peerDependencies": {
+    "ajv": "^6.10.0"
   }
 }
