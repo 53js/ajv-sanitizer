@@ -1,13 +1,19 @@
 const sanitizers = require('./lib/sanitizers');
 
-const ajvSanitizer = (ajv) => {
+const ajvSanitizer = (ajv, extraSanitizers) => {
+	const extendedSanitizers = Object.assign(
+		{},
+		sanitizers,
+		extraSanitizers,
+	);
+
 	ajv.addKeyword('sanitize', {
 		modifying: true,
 		compile: function compile(schema) {
 			let sanitize;
 
 			if (typeof schema === 'string') {
-				sanitize = sanitizers[schema];
+				sanitize = extendedSanitizers[schema];
 			}
 
 			if (typeof schema === 'function') {

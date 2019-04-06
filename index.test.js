@@ -1,4 +1,5 @@
 const Ajv = require('ajv');
+const { normalizeEmail } = require('validator');
 
 const ajvSanitizer = require('.');
 
@@ -192,6 +193,68 @@ describe('ajvSanitizer(ajv)', () => {
 
 			expect(ajv.validate(schemaDeep, dataDeep)).toBe(true);
 			expect(dataDeep).toEqual({ parentObject: { fieldNumber: 33 } });
+		},
+	);
+
+	it(
+		'can be extented with custom sanitizers',
+		() => {
+			const uppercase = jest.fn(value => value.toUpperCase());
+
+			const extendedAjv = ajvSanitizer(
+				new AjvOriginal(),
+				{ uppercase },
+			);
+
+			const extendedSchema = {
+				type: 'object',
+				properties: {
+					shouldBeUppercase: {
+						type: 'string',
+						sanitize: 'uppercase',
+					},
+				},
+			};
+
+			const extendedData = {
+				shouldBeUppercase: 'text',
+			};
+
+			expect(extendedAjv.validate(extendedSchema, extendedData)).toBe(true);
+			expect(uppercase).toHaveBeenCalled();
+			expect(extendedData).toEqual({ shouldBeUppercase: 'TEXT' });
+		},
+	);
+
+	it(
+		'can be extented with custom sanitizers overriding defaults',
+		() => {
+			const emailKeepDots = jest.fn(
+				value => normalizeEmail(value, { gmail_remove_dots: false }),
+			);
+
+			const overrideAjv = ajvSanitizer(
+				new AjvOriginal(),
+				{ email: emailKeepDots },
+			);
+
+			const overrideSchema = {
+				type: 'object',
+				properties: {
+					shouldHaveDots: {
+						type: 'string',
+						sanitize: 'email',
+					},
+				},
+			};
+
+			const overrideData = {
+				shouldHaveDots: 'test.test@gmail.com',
+			};
+
+			expect(overrideAjv.validate(overrideSchema, overrideData)).toBe(true);
+			expect(emailKeepDots).toHaveBeenCalled();
+			expect(overrideData).toEqual({ shouldHaveDots: 'test.test@gmail.com' });
 		},
 	);
 });
