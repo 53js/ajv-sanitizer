@@ -1,11 +1,10 @@
 const sanitizers = require('./lib/sanitizers');
 
 const ajvSanitizer = (ajv, extraSanitizers) => {
-	const extendedSanitizers = Object.assign(
-		{},
-		sanitizers,
-		extraSanitizers,
-	);
+	const extendedSanitizers = {
+		...sanitizers,
+		...extraSanitizers,
+	};
 
 	ajv.addKeyword('sanitize', {
 		modifying: true,

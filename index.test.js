@@ -70,7 +70,7 @@ const schemaFunction = {
 	properties: {
 		fieldFunction: {
 			type: 'string',
-			sanitize: d => `${d}!`,
+			sanitize: (d) => `${d}!`,
 		},
 	},
 };
@@ -199,7 +199,7 @@ describe('ajvSanitizer(ajv)', () => {
 	it(
 		'can be extented with custom sanitizers',
 		() => {
-			const uppercase = jest.fn(value => value.toUpperCase());
+			const uppercase = jest.fn((value) => value.toUpperCase());
 
 			const extendedAjv = ajvSanitizer(
 				new AjvOriginal(),
@@ -230,7 +230,7 @@ describe('ajvSanitizer(ajv)', () => {
 		'can be extented with custom sanitizers overriding defaults',
 		() => {
 			const emailKeepDots = jest.fn(
-				value => normalizeEmail(value, { gmail_remove_dots: false }),
+				(value) => normalizeEmail(value, { gmail_remove_dots: false }),
 			);
 
 			const overrideAjv = ajvSanitizer(
