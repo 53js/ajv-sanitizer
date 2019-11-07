@@ -114,6 +114,27 @@ const schemaDeep = {
 	},
 };
 
+const schemaArray = {
+	type: 'array',
+	items: {
+		type: 'string',
+		sanitize: 'escape',
+	},
+};
+
+const schemaArrayOfObjects = {
+	type: 'array',
+	items: {
+		type: 'object',
+		properties: {
+			fieldText: {
+				type: 'string',
+				sanitize: 'escape',
+			},
+		},
+	},
+};
+
 beforeEach(() => {
 	ajv = ajvSanitizer(new AjvOriginal());
 	Ajv.mockClear();
@@ -255,6 +276,20 @@ describe('ajvSanitizer(ajv)', () => {
 			expect(overrideAjv.validate(overrideSchema, overrideData)).toBe(true);
 			expect(emailKeepDots).toHaveBeenCalled();
 			expect(overrideData).toEqual({ shouldHaveDots: 'test.test@gmail.com' });
+		},
+	);
+
+	it(
+		'should sanitize arrays',
+		() => {
+			const dataArr = ['&nbsp;'];
+			const dataArrOfObjects = [{ fieldText: '&nbsp;' }];
+
+			expect(ajv.validate(schemaArray, dataArr)).toBe(true);
+			expect(ajv.validate(schemaArrayOfObjects, dataArrOfObjects)).toBe(true);
+
+			expect(dataArr).toEqual(['&amp;nbsp;']);
+			expect(dataArrOfObjects).toEqual([{ fieldText: '&amp;nbsp;' }]);
 		},
 	);
 });
