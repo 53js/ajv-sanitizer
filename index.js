@@ -6,7 +6,8 @@ const ajvSanitizer = (ajv, extraSanitizers) => {
 		...extraSanitizers,
 	};
 
-	ajv.addKeyword('sanitize', {
+	ajv.addKeyword({
+		keyword: 'sanitize',
 		modifying: true,
 		compile: function compile(schema) {
 			let sanitize;
@@ -24,8 +25,8 @@ const ajvSanitizer = (ajv, extraSanitizers) => {
 			}
 
 			return (data, currentDataPath, parentDataObject, propertyName) => {
-				if (!propertyName && propertyName !== 0) throw new TypeError('Data must be a property of an object');
-				parentDataObject[propertyName] = sanitize(data);
+				if (!currentDataPath && !currentDataPath.parentDataProperty && currentDataPath.parentDataProperty !== 0) throw new TypeError('Data must be a property of an object');
+				currentDataPath.parentData[currentDataPath.parentDataProperty] = sanitize(data);
 				return true;
 			};
 		},
