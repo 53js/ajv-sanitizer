@@ -6,7 +6,8 @@ const ajvSanitizer = (ajv, extraSanitizers) => {
 		...extraSanitizers,
 	};
 
-	ajv.addKeyword('sanitize', {
+	ajv.addKeyword({
+		keyword: 'sanitize',
 		modifying: true,
 		compile: function compile(schema) {
 			let sanitize;
