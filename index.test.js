@@ -292,4 +292,26 @@ describe('ajvSanitizer(ajv)', () => {
 			expect(dataArrOfObjects).toEqual([{ fieldText: '&amp;nbsp;' }]);
 		},
 	);
+
+	it(
+		'should not call sanitize if type is invalid',
+		() => {
+			const dataNumber = { value: 14 };
+			const sanitize = jest.fn((v) => v + 2);
+
+			const result = ajv.validate(
+				{
+					type: 'object',
+					properties: {
+						value: { type: 'string', sanitize },
+					},
+				},
+				dataNumber,
+			);
+
+			expect(sanitize).not.toHaveBeenCalled();
+			expect(result).toBe(false);
+			expect(dataNumber).toEqual({ value: 14 });
+		},
+	);
 });
