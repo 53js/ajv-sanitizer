@@ -31,17 +31,18 @@
     "test": "jest"
   },
   "dependencies": {
-    "validator": "^11.1.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
-    "eslint": "^6.6.0",
-    "eslint-config-53js": "^1.1.2",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jest": "^23.0.2",
-    "jest": "^24.9.0"
+    "ajv": "^8.10.0",
+    "eslint": "^8.11.0",
+    "eslint-config-53js": "^1.2.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^26.1.2",
+    "jest": "^27.5.1"
   },
   "peerDependencies": {
-    "ajv": "^6.10.0"
+    "ajv": "8.x"
   }
 }

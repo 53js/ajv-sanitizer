@@ -144,8 +144,8 @@ describe('ajvSanitizer(ajv)', () => {
 	it('should add a sanitize keyword to Ajv instance', () => {
 		ajvSanitizer(new Ajv());
 		expect(mockAddKeyword).toHaveBeenCalledWith(
-			'sanitize',
 			{
+				keyword: 'sanitize',
 				modifying: true,
 				compile: expect.any(Function),
 				errors: false,
