@@ -1,6 +1,6 @@
 {
   "name": "ajv-sanitizer",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "String sanitization with JSON-Schema using Ajv",
   "keywords": [
     "JSON",
